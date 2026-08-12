@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOX — Commencer</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #0b0b0f;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+      padding: 40px 20px;
+    }
+
+    .logo {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin: 0 0 15px;
+    }
+
+    .subtitle {
+      color: #bdbdc7;
+      font-size: 20px;
+      line-height: 1.5;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: #15151d;
+      border: 1px solid #292936;
+      border-radius: 24px;
+      padding: 30px 20px;
+      margin-bottom: 25px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 26px;
+    }
+
+    .card p {
+      color: #bdbdc7;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-block;
+      border: none;
+      border-radius: 50px;
+      padding: 17px 40px;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      background: #8b5cf6;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.04);
+      background: #9d70ff;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 20px;
+      color: #aaa;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .back:hover {
+      color: white;
+    }
+
+    #message {
+      display: none;
+      margin-top: 25px;
+      padding: 18px;
+      border-radius: 15px;
+      background: #1d1d27;
+      color: #d6c7ff;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="logo">💎</div>
+
+    <h1>Bienvenue dans LOX</h1>
+
+    <p class="subtitle">
+      Ton espace LOX commence ici.<br>
+      Prépare-toi à découvrir ton nouvel univers.
+    </p>
+
+    <div class="card">
+      <h2>🚀 Prêt à commencer ?</h2>
+
+      <p>
+        Tu es arrivé dans ton espace LOX.
+        Clique sur le bouton ci-dessous pour continuer.
+      </p>
+
+      <button class="btn" onclick="commencer()">
+        Commencer
+      </button>
+
+      <div id="message">
+        ✨ Bienvenue dans LOX !<br><br>
+        Ton espace est prêt.
+      </div>
+    </div>
+
+    <a href="index.html" class="back">
+      ← Retour à l'accueil
+    </a>
+
+  </div>
+
+  <script>
+    function commencer() {
+      const message = document.getElementById("message");
+
+      message.style.display = "block";
+
+      message.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }
+  </script>
+
+</body>
+</html>

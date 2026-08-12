@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LOX — Dashboard</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #07070b;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* BACKGROUND */
+
+    body::before {
+      content: "";
+      position: fixed;
+      width: 350px;
+      height: 350px;
+      background: #6d28d9;
+      filter: blur(150px);
+      opacity: 0.12;
+      top: -150px;
+      right: -100px;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      background: #2563eb;
+      filter: blur(150px);
+      opacity: 0.08;
+      bottom: -150px;
+      left: -100px;
+      pointer-events: none;
+    }
+
+    /* APP */
+
+    .app {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      padding-bottom: 90px;
+    }
+
+    /* TOPBAR */
+
+    .topbar {
+      height: 75px;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #202029;
+      background: rgba(7, 7, 11, 0.85);
+      backdrop-filter: blur(15px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 23px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .logo span {
+      font-size: 30px;
+    }
+
+    .status {
+      color: #75e69a;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    /* MAIN */
+
+    .main {
+      width: 100%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 25px 18px;
+    }
+
+    .hero {
+      padding: 20px 4px 25px;
+    }
+
+    .hero small {
+      color: #8b5cf6;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      margin: 10px 0;
+    }
+
+    .hero p {
+      color: #92929e;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* PRIME */
+
+    .prime {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, #181126, #101016);
+      border: 1px solid #30234a;
+      border-radius: 26px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+    }
+
+    .prime::after {
+      content: "AI";
+      position: absolute;
+      right: 20px;
+      top: 10px;
+      font-size: 80px;
+      font-weight: bold;
+      color: rgba(139,92,246,0.05);
+    }
+
+    .prime-top {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .prime-icon {
+      width: 55px;
+      height: 55px;
+      border-radius: 17px;
+      background: #8b5cf6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 29px;
+    }
+
+    .prime h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .prime-status {
+      color: #83e8a2;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .prime p {
+      color: #aaaab5;
+      line-height: 1.5;
+      margin: 20px 0;
+    }
+
+    .prime-button {
+      border: 0;
+      border-radius: 14px;
+      background: #8b5cf6;
+      color: white;
+      padding: 13px 20px;
+      font-weight: bold;
+    }
+
+    /* SECTION */
+
+    .section-title {
+      margin: 30px 2px 15px;
+      font-size: 19px;
+    }
+
+    /* MODULES */
+
+    .modules {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 13px;
+    }
+
+    .module {
+      min-height: 135px;
+      padding: 18px;
+      border-radius: 21px;
+      border: 1px solid #25252e;
+      background: linear-gradient(145deg, #141419, #0e0e13);
+      transition: 0.2s;
+    }
+
+    .module:active {
+      transform: scale(0.96);
+    }
+
+    .module-icon {
+      font-size: 31px;
+      margin-bottom: 15px;
+    }
+
+    .module h3 {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .module p {
+      color: #858590;
+      font-size: 12px;
+      line-height: 1.4;
+      margin: 7px 0 0;
+    }
+
+    /* SYSTEM */
+
+    .system {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .system-card {
+      background: #111116;
+      border: 1px solid #24242c;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .system-card strong {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    .system-card span {
+      color: #858590;
+      font-size: 12px;
+    }
+
+    /* NAV */
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 76px;
+      z-index: 30;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: rgba(10,10,14,0.95);
+      border-top: 1px solid #24242c;
+      backdrop-filter: blur(15px);
+    }
+
+    .nav-button {
+      border: 0;
+      background: none;
+      color: #777783;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-button span {
+      font-size: 22px;
+    }
+
+    .nav-button.active {
+      color: #9c73ff;
+    }
+
+    /* MODAL */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 650px;
+      background: #15151c;
+      border: 1px solid #2b2b36;
+      border-radius: 26px 26px 0 0;
+      padding: 25px;
+      animation: up 0.25s ease;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .modal-content p {
+      color: #9999a5;
+      line-height: 1.6;
+    }
+
+    .close {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px;
+      background: #272731;
+      color: white;
+      margin-top: 15px;
+    }
+
+    @keyframes up {
+      from {
+        transform: translateY(100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @media (min-width: 700px) {
+
+      .modules {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .bottom-nav {
+        max-width: 700px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 25px 25px 0 0;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- TOPBAR -->
+
+  <header class="topbar">
+
+    <div class="logo">
+      <span>💎</span>
+      LOX
+    </div>
+
+    <div class="status">
+      ● SYSTEM ONLINE
+    </div>
+
+  </header>
+
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <section class="hero">
+
+      <small>LOX COMMAND CENTER</small>
+
+      <h1>Dashboard</h1>
+
+      <p>
+        Bienvenue dans ton centre de contrôle personnel.
+      </p>
+
+    </section>
+
+
+    <!-- LOX PRIME -->
+
+    <section class="prime">
+
+      <div class="prime-top">
+
+        <div class="prime-icon">
+          🧠
+        </div>
+
+        <div>
+
+          <h2>LOX PRIME</h2>
+
+          <div class="prime-status">
+            ● PRÊT
+          </div>
+
+        </div>
+
+      </div>
+
+      <p>
+        Ton intelligence centrale. Elle sera progressivement
+        connectée aux agents, aux modules et aux systèmes
+        de LOX.
+      </p>
+
+      <button
+        class="prime-button"
+        onclick="openModule('LOX PRIME')"
+      >
+        Ouvrir LOX PRIME
+      </button>
+
+    </section>
+
+
+    <!-- MODULES -->
+
+    <h2 class="section-title">
+      ⚡ Modules
+    </h2>
+
+    <section class="modules">
+
+
+      <article
+        class="module"
+        onclick="openModule('Météo')"
+      >
+        <div class="module-icon">🌤️</div>
+        <h3>Météo</h3>
+        <p>
+          Conditions et prévisions.
+        </p>
+      </article>
+
+
+      <article
+        class="module"
+        onclick="openModule('Générateur de fréquence')"
+      >
+        <div class="module-icon">〰️</div>
+        <h3>Fréquences</h3>
+        <p>
+          Générateur et visualisation.
+        </p>
+      </article>
+
+
+      <article
+        class="module"
+        onclick="openModule('Creator')"
+      >
+        <div class="module-icon">🎨</div>
+        <h3>Creator</h3>
+        <p>
+          Création de contenu assistée.
+        </p>
+      </article>
+
+
+      <article
+        class="module"
+        onclick="openModule('Laboratoire')"
+      >
+        <div class="module-icon">🔬</div>
+        <h3>Laboratoire</h3>
+        <p>
+          Analyse assistée par agent IA.
+        </p>
+      </article>
+
+
+      <article
+        class="module"
+        onclick="openModule('News')"
+      >
+        <div class="module-icon">🌍</div>
+        <h3>News</h3>
+        <p>
+          Actualités du monde.
+        </p>
+      </article>
+
+
+      <article
+        class="module"
+        onclick="openModule('Scanner')"
+      >
+        <div class="module-icon">📡</div>
+        <h3>Scanner</h3>
+        <p>
+          Outils d'analyse et détection.
+        </p>
+      </article>
+
+
+      <article
+        class="module"
+        onclick="openModule('Caméra infrarouge')"
+      >
+        <div class="module-icon">🌡️</div>
+        <h3>Infrarouge</h3>
+        <p>
+          Interface caméra IR.
+        </p>
+      </article>
+
+
+      <article
+        class="module"
+        onclick="openModule('Playlist')"
+      >
+        <div class="module-icon">🎵</div>
+        <h3>Playlist</h3>
+        <p>
+          Ton espace audio.
+        </p>
+      </article>
+
+
+      <article
+        class="module"
+        onclick="openModule('Fichiers multimédia')"
+      >
+        <div class="module-icon">📁</div>
+        <h3>Médias</h3>
+        <p>
+          Fichiers et contenus.
+        </p>
+      </article>
+
+
+      <article
+        class="module"
+        onclick="openModule('Jeux')"
+      >
+        <div class="module-icon">🎮</div>
+        <h3>Jeux</h3>
+        <p>
+          Espace gaming.
+        </p>
+      </article>
+
+
+      <article
+        class="module"
+        onclick="openModule('Grimoire')"
+      >
+        <div class="module-icon">📖</div>
+        <h3>Grimoire</h3>
+        <p>
+          Notes et connaissances.
+        </p>
+      </article>
+
+
+      <article
+        class="module"
+        onclick="openModule('Cockpit')"
+      >
+        <div class="module-icon">🚀</div>
+        <h3>Cockpit</h3>
+        <p>
+          Centre de contrôle.
+        </p>
+      </article>
+
+
+      <article
+        class="module"
+        onclick="openModule('Satellite')"
+      >
+        <div class="module-icon">🛰️</div>
+        <h3>Satellite</h3>
+        <p>
+          Exploration et données spatiales.
+        </p>
+      </article>
+
+
+    </section>
+
+
+    <!-- SYSTÈME -->
+
+    <h2 class="section-title">
+      🧬 État du système
+    </h2>
+
+    <section class="system">
+
+      <div class="system-card">
+        <strong>ONLINE</strong>
+        <span>LOX Core</span>
+      </div>
+
+      <div class="system-card">
+        <strong>READY</strong>
+        <span>Agents IA</span>
+      </div>
+
+      <div class="system-card">
+        <strong>V1.0</strong>
+        <span>Version</span>
+      </div>
+
+      <div class="system-card">
+        <strong>0</strong>
+        <span>Mises à jour</span>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- NAVIGATION -->
+
+  <nav class="bottom-nav">
+
+    <button
+      class="nav-button active"
+      onclick="scrollTopPage()"
+    >
+      <span>🏠</span>
+      Accueil
+    </button>
+
+    <button
+      class="nav-button"
+      onclick="openModule('Recherche')"
+    >
+      <span>🔎</span>
+      Recherche
+    </button>
+
+    <button
+      class="nav-button"
+      onclick="openModule('LOX PRIME')"
+    >
+      <span>🧠</span>
+      IA
+    </button>
+
+    <button
+      class="nav-button"
+      onclick="openModule('Paramètres')"
+    >
+      <span>⚙️</span>
+      Réglages
+    </button>
+
+  </nav>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div id="modal" class="modal">
+
+  <div class="modal-content">
+
+    <h2 id="modalTitle">
+      LOX
+    </h2>
+
+    <p id="modalText">
+      Module LOX.
+    </p>
+
+    <button
+      class="close"
+      onclick="closeModule()"
+    >
+      Fermer
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  function openModule(name) {
+
+    document.getElementById("modalTitle")
+      .textContent = name;
+
+    document.getElementById("modalText")
+      .textContent =
+      "Le module " + name +
+      " est enregistré dans LOX. " +
+      "Nous allons maintenant lui donner ses véritables fonctionnalités.";
+
+    document.getElementById("modal")
+      .classList.add("open");
+  }
+
+
+  function closeModule() {
+
+    document.getElementById("modal")
+      .classList.remove("open");
+  }
+
+
+  function scrollTopPage() {
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+
+  document.getElementById("modal")
+    .addEventListener("click", function(event) {
+
+      if (event.target === this) {
+        closeModule();
+      }
+
+    });
+
+</script>
+
+</body>
+</html>

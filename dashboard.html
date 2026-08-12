@@ -224,6 +224,10 @@
       font-weight: bold;
     }
 
+    .prime-button:active {
+      transform: scale(0.97);
+    }
+
     /* MODULES */
 
     .section-title {
@@ -293,7 +297,7 @@
       font-size: 12px;
     }
 
-    /* NAV */
+    /* NAVIGATION */
 
     .bottom-nav {
       position: fixed;
@@ -373,6 +377,7 @@
     }
 
     @media (min-width: 700px) {
+
       .modules {
         grid-template-columns: repeat(3, 1fr);
       }
@@ -385,6 +390,7 @@
         transform: translateX(-50%);
         border-radius: 25px 25px 0 0;
       }
+
     }
   </style>
 </head>
@@ -470,7 +476,7 @@
     </section>
 
 
-    <!-- PRIME -->
+    <!-- LOX PRIME -->
 
     <section class="prime">
 
@@ -498,15 +504,18 @@
         aux différents modules.
       </p>
 
+
       <button
         class="prime-button"
-        onclick="openModule('LOX PRIME')"
+        onclick="openPrime()"
       >
-        Ouvrir LOX PRIME
+        🧠 Ouvrir LOX PRIME
       </button>
 
     </section>
 
+
+    <!-- MODULES -->
 
     <h2 class="section-title">
       ⚡ Modules
@@ -515,79 +524,130 @@
 
     <section class="modules">
 
-      <article class="module" onclick="openModule('Météo')">
+      <article
+        class="module"
+        onclick="openModule('Météo')"
+      >
         <div class="module-icon">🌤️</div>
         <h3>Météo</h3>
         <p>Conditions et prévisions.</p>
       </article>
 
-      <article class="module" onclick="openModule('Fréquences')">
+
+      <article
+        class="module"
+        onclick="openModule('Fréquences')"
+      >
         <div class="module-icon">〰️</div>
         <h3>Fréquences</h3>
         <p>Générateur et visualisation.</p>
       </article>
 
-      <article class="module" onclick="openModule('Creator')">
+
+      <article
+        class="module"
+        onclick="openModule('Creator')"
+      >
         <div class="module-icon">🎨</div>
         <h3>Creator</h3>
         <p>Création assistée.</p>
       </article>
 
-      <article class="module" onclick="openModule('Laboratoire')">
+
+      <article
+        class="module"
+        onclick="openModule('Laboratoire')"
+      >
         <div class="module-icon">🔬</div>
         <h3>Laboratoire</h3>
         <p>Analyse et expérimentation.</p>
       </article>
 
-      <article class="module" onclick="openModule('News')">
+
+      <article
+        class="module"
+        onclick="openModule('News')"
+      >
         <div class="module-icon">🌍</div>
         <h3>News</h3>
         <p>Actualités.</p>
       </article>
 
-      <article class="module" onclick="openModule('Scanner')">
+
+      <article
+        class="module"
+        onclick="openModule('Scanner')"
+      >
         <div class="module-icon">📡</div>
         <h3>Scanner</h3>
         <p>Analyse et détection.</p>
       </article>
 
-      <article class="module" onclick="openModule('Infrarouge')">
+
+      <article
+        class="module"
+        onclick="openModule('Infrarouge')"
+      >
         <div class="module-icon">🌡️</div>
         <h3>Infrarouge</h3>
         <p>Interface caméra IR.</p>
       </article>
 
-      <article class="module" onclick="openModule('Playlist')">
+
+      <article
+        class="module"
+        onclick="openModule('Playlist')"
+      >
         <div class="module-icon">🎵</div>
         <h3>Playlist</h3>
         <p>Espace audio.</p>
       </article>
 
-      <article class="module" onclick="openModule('Médias')">
+
+      <article
+        class="module"
+        onclick="openModule('Médias')"
+      >
         <div class="module-icon">📁</div>
         <h3>Médias</h3>
         <p>Fichiers et contenus.</p>
       </article>
 
-      <article class="module" onclick="openModule('Jeux')">
+
+      <article
+        class="module"
+        onclick="openModule('Jeux')"
+      >
         <div class="module-icon">🎮</div>
         <h3>Jeux</h3>
         <p>Espace gaming.</p>
       </article>
 
-      <article class="module" onclick="openModule('Grimoire')">
+
+      <article
+        class="module"
+        onclick="openModule('Grimoire')"
+      >
         <div class="module-icon">📖</div>
         <h3>Grimoire</h3>
         <p>Notes et connaissances.</p>
       </article>
 
-      <article class="module" onclick="openModule('Cockpit')">
+
+      <article
+        class="module"
+        onclick="openModule('Cockpit')"
+      >
         <div class="module-icon">🚀</div>
         <h3>Cockpit</h3>
         <p>Centre de contrôle.</p>
       </article>
 
-      <article class="module" onclick="openModule('Satellite')">
+
+      <article
+        class="module"
+        onclick="openModule('Satellite')"
+      >
         <div class="module-icon">🛰️</div>
         <h3>Satellite</h3>
         <p>Exploration spatiale.</p>
@@ -595,6 +655,8 @@
 
     </section>
 
+
+    <!-- SYSTEM -->
 
     <h2 class="section-title">
       🧬 État du système
@@ -628,24 +690,41 @@
   </main>
 
 
+  <!-- NAVIGATION -->
+
   <nav class="bottom-nav">
 
-    <button class="nav-button active" onclick="scrollTopPage()">
+    <button
+      class="nav-button active"
+      onclick="scrollTopPage()"
+    >
       <span>🏠</span>
       Accueil
     </button>
 
-    <button class="nav-button" onclick="openModule('Recherche')">
+
+    <button
+      class="nav-button"
+      onclick="openModule('Recherche')"
+    >
       <span>🔎</span>
       Recherche
     </button>
 
-    <button class="nav-button" onclick="openModule('LOX PRIME')">
+
+    <button
+      class="nav-button"
+      onclick="openPrime()"
+    >
       <span>🧠</span>
       IA
     </button>
 
-    <button class="nav-button" onclick="openModule('Paramètres')">
+
+    <button
+      class="nav-button"
+      onclick="openModule('Paramètres')"
+    >
       <span>⚙️</span>
       Réglages
     </button>
@@ -655,17 +734,27 @@
 </div>
 
 
-<div id="modal" class="modal">
+<!-- MODAL -->
+
+<div
+  id="modal"
+  class="modal"
+>
 
   <div class="modal-content">
 
-    <h2 id="modalTitle">LOX</h2>
+    <h2 id="modalTitle">
+      LOX
+    </h2>
 
     <p id="modalText">
       Module LOX.
     </p>
 
-    <button class="close" onclick="closeModule()">
+    <button
+      class="close"
+      onclick="closeModule()"
+    >
       Fermer
     </button>
 
@@ -678,23 +767,20 @@
 
   /*
    * LOX UPDATE ENGINE
-   *
-   * Pour l'instant, cette fonction vérifie
-   * l'état local du système.
-   *
-   * Plus tard, elle pourra consulter un
-   * fichier de version contrôlé sur GitHub.
    */
 
   function checkUpdate() {
 
     const result =
-      document.getElementById("updateResult");
+      document.getElementById(
+        "updateResult"
+      );
 
     result.style.display = "block";
 
     result.innerHTML =
       "🔍 Vérification en cours...";
+
 
     setTimeout(function() {
 
@@ -708,53 +794,94 @@
   }
 
 
+  /*
+   * OUVRIR LOX PRIME
+   */
+
+  function openPrime() {
+
+    window.location.href =
+      "prime.html";
+
+  }
+
+
+  /*
+   * MODULES
+   */
+
   function openModule(name) {
 
-    document.getElementById("modalTitle")
-      .textContent = name;
+    document.getElementById(
+      "modalTitle"
+    ).textContent = name;
 
-    document.getElementById("modalText")
-      .textContent =
-      "Le module " + name +
+
+    document.getElementById(
+      "modalText"
+    ).textContent =
+      "Le module " +
+      name +
       " est enregistré dans LOX. " +
       "Nous allons maintenant lui donner " +
       "ses véritables fonctionnalités.";
 
-    document.getElementById("modal")
-      .classList.add("open");
+
+    document.getElementById(
+      "modal"
+    ).classList.add("open");
 
   }
 
+
+  /*
+   * FERMER MODAL
+   */
 
   function closeModule() {
 
-    document.getElementById("modal")
-      .classList.remove("open");
+    document.getElementById(
+      "modal"
+    ).classList.remove("open");
 
   }
 
+
+  /*
+   * RETOUR EN HAUT
+   */
 
   function scrollTopPage() {
 
     window.scrollTo({
+
       top: 0,
+
       behavior: "smooth"
+
     });
 
   }
 
 
-  document.getElementById("modal")
-    .addEventListener(
-      "click",
-      function(event) {
+  /*
+   * FERMETURE DU MODAL
+   */
 
-        if (event.target === this) {
-          closeModule();
-        }
+  document.getElementById(
+    "modal"
+  ).addEventListener(
+    "click",
+    function(event) {
+
+      if (event.target === this) {
+
+        closeModule();
 
       }
-    );
+
+    }
+  );
 
 </script>
 

@@ -1,335 +1,979 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>LOX PRIME</title>
 
+
   <style>
+
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
+
 
     body {
+
       margin: 0;
+
       min-height: 100vh;
-      background: #08080d;
+
+      background:
+        radial-gradient(
+          circle at top,
+          #171128 0%,
+          #08080d 45%,
+          #050507 100%
+        );
+
       color: white;
-      font-family: Arial, sans-serif;
+
+      font-family:
+        Arial,
+        sans-serif;
+
     }
+
+
+    button,
+    textarea {
+
+      font-family: inherit;
+
+    }
+
 
     .app {
+
       min-height: 100vh;
+
       display: flex;
+
       flex-direction: column;
+
     }
+
+
+    /* =========================
+       TOP BAR
+    ========================= */
 
     .topbar {
+
       height: 70px;
-      padding: 0 18px;
+
+      padding:
+        0 16px;
+
       display: flex;
+
       align-items: center;
-      gap: 14px;
-      background: #101017;
-      border-bottom: 1px solid #262630;
-      position: sticky;
+
+      gap: 12px;
+
+      background:
+        rgba(9,9,14,0.92);
+
+      border-bottom:
+        1px solid #24242e;
+
+      backdrop-filter:
+        blur(15px);
+
+      position:
+        sticky;
+
       top: 0;
-      z-index: 10;
+
+      z-index: 20;
+
     }
+
 
     .back {
+
       width: 42px;
+
       height: 42px;
+
       border: 0;
+
       border-radius: 50%;
-      background: #1b1b24;
+
+      background: #191921;
+
       color: white;
+
       font-size: 20px;
+
       cursor: pointer;
+
     }
+
 
     .brain {
-      width: 42px;
-      height: 42px;
-      border-radius: 13px;
-      background: #8b5cf6;
+
+      width: 44px;
+
+      height: 44px;
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #9b6cff,
+          #6333c5
+        );
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
-      font-size: 23px;
+
+      font-size: 24px;
+
+      box-shadow:
+        0 0 25px
+        rgba(139,92,246,0.25);
+
     }
+
+
+    .title {
+
+      flex: 1;
+
+    }
+
 
     .title h1 {
+
       margin: 0;
-      font-size: 19px;
+
+      font-size: 18px;
+
+      letter-spacing: 1px;
+
     }
+
 
     .title p {
-      margin: 3px 0 0;
-      color: #7ee5a0;
-      font-size: 11px;
+
+      margin:
+        4px 0 0;
+
+      color: #78e49a;
+
+      font-size: 10px;
+
+      font-weight: bold;
+
     }
+
+
+    /* =========================
+       CHAT
+    ========================= */
 
     .chat {
-      flex: 1;
+
       width: 100%;
-      max-width: 800px;
+
+      max-width: 850px;
+
       margin: auto;
-      padding: 20px 15px 120px;
+
+      padding:
+        25px 15px 150px;
+
     }
 
-    .message {
-      display: flex;
-      margin: 14px 0;
-    }
-
-    .message.user {
-      justify-content: flex-end;
-    }
-
-    .bubble {
-      max-width: 85%;
-      padding: 14px 16px;
-      border-radius: 19px;
-      line-height: 1.5;
-      white-space: pre-wrap;
-    }
-
-    .message.lox .bubble {
-      background: #15151d;
-      border: 1px solid #292933;
-      border-bottom-left-radius: 5px;
-    }
-
-    .message.user .bubble {
-      background: #7045d8;
-      border-bottom-right-radius: 5px;
-    }
 
     .welcome {
+
       text-align: center;
-      padding: 30px 10px;
-      color: #9696a2;
+
+      padding:
+        45px 15px;
+
+      color: #91919d;
+
     }
+
 
     .welcome-icon {
-      font-size: 65px;
+
+      font-size: 70px;
+
       margin-bottom: 15px;
+
+      filter:
+        drop-shadow(
+          0 0 20px
+          rgba(139,92,246,0.35)
+        );
+
     }
+
 
     .welcome h2 {
+
       color: white;
-      margin: 0 0 10px;
+
+      margin:
+        0 0 10px;
+
+      font-size: 27px;
+
     }
+
 
     .welcome p {
-      line-height: 1.6;
-    }
 
-    .input-area {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(9,9,13,0.96);
-      border-top: 1px solid #25252d;
-      padding: 12px;
-      z-index: 20;
-    }
+      line-height: 1.7;
 
-    .input-box {
-      max-width: 800px;
+      max-width: 500px;
+
       margin: auto;
-      display: flex;
-      gap: 9px;
+
     }
 
-    textarea {
-      flex: 1;
-      resize: none;
-      height: 50px;
-      border: 1px solid #30303a;
-      border-radius: 17px;
-      background: #15151c;
-      color: white;
-      padding: 14px;
-      outline: none;
-      font-family: inherit;
+
+    /* =========================
+       MESSAGES
+    ========================= */
+
+    .message {
+
+      display: flex;
+
+      margin:
+        16px 0;
+
+      animation:
+        appear 0.2s ease;
+
+    }
+
+
+    .message.user {
+
+      justify-content:
+        flex-end;
+
+    }
+
+
+    .bubble {
+
+      max-width: 86%;
+
+      padding:
+        14px 17px;
+
+      border-radius:
+        19px;
+
+      line-height: 1.55;
+
+      white-space: pre-wrap;
+
+      word-break: break-word;
+
       font-size: 15px;
+
     }
 
-    textarea:focus {
-      border-color: #8b5cf6;
+
+    .message.lox {
+
+      justify-content:
+        flex-start;
+
     }
 
-    .send {
-      width: 52px;
-      border: 0;
-      border-radius: 17px;
-      background: #8b5cf6;
-      color: white;
-      font-size: 21px;
-      cursor: pointer;
+
+    .message.lox .bubble {
+
+      background:
+        linear-gradient(
+          145deg,
+          #17171f,
+          #101015
+        );
+
+      border:
+        1px solid #292933;
+
+      border-bottom-left-radius:
+        5px;
+
+      color: #eeeeF3;
+
     }
 
-    .tools {
-      max-width: 800px;
-      margin: 8px auto 0;
+
+    .message.user .bubble {
+
+      background:
+        linear-gradient(
+          135deg,
+          #8052ed,
+          #6438c4
+        );
+
+      border-bottom-right-radius:
+        5px;
+
+    }
+
+
+    .message-label {
+
+      font-size: 10px;
+
+      color: #747480;
+
+      margin:
+        0 0 5px 5px;
+
+      font-weight: bold;
+
+    }
+
+
+    .lox-avatar {
+
+      width: 28px;
+
+      height: 28px;
+
+      min-width: 28px;
+
+      border-radius: 10px;
+
+      background: #7044d6;
+
       display: flex;
-      justify-content: space-between;
+
+      align-items: center;
+
+      justify-content: center;
+
+      margin:
+        5px 8px 0 0;
+
+      font-size: 14px;
+
     }
 
-    .tool {
-      border: 0;
-      background: transparent;
-      color: #777783;
-      font-size: 12px;
-      cursor: pointer;
-    }
+
+    /* =========================
+       TYPING
+    ========================= */
 
     .typing {
-      color: #8b5cf6;
-      font-size: 13px;
+
+      display: none;
+
+      align-items: center;
+
+      gap: 8px;
+
+      margin:
+        15px 0;
+
+      color: #888895;
+
+      font-size: 12px;
+
     }
+
+
+    .typing.show {
+
+      display: flex;
+
+    }
+
+
+    .dots {
+
+      display: flex;
+
+      gap: 4px;
+
+    }
+
+
+    .dots span {
+
+      width: 5px;
+
+      height: 5px;
+
+      border-radius: 50%;
+
+      background: #8b5cf6;
+
+      animation:
+        bounce 1s infinite;
+
+    }
+
+
+    .dots span:nth-child(2) {
+
+      animation-delay:
+        0.15s;
+
+    }
+
+
+    .dots span:nth-child(3) {
+
+      animation-delay:
+        0.3s;
+
+    }
+
+
+    /* =========================
+       INPUT
+    ========================= */
+
+    .input-area {
+
+      position:
+        fixed;
+
+      bottom: 0;
+
+      left: 0;
+
+      right: 0;
+
+      z-index: 30;
+
+      padding:
+        10px 12px 12px;
+
+      background:
+        rgba(7,7,11,0.96);
+
+      border-top:
+        1px solid #24242e;
+
+      backdrop-filter:
+        blur(15px);
+
+    }
+
+
+    .input-box {
+
+      width: 100%;
+
+      max-width: 850px;
+
+      margin: auto;
+
+      display: flex;
+
+      gap: 8px;
+
+      align-items:
+        flex-end;
+
+    }
+
+
+    textarea {
+
+      flex: 1;
+
+      min-height: 50px;
+
+      max-height: 130px;
+
+      resize: none;
+
+      border:
+        1px solid #30303a;
+
+      border-radius:
+        17px;
+
+      background:
+        #14141b;
+
+      color: white;
+
+      padding:
+        14px;
+
+      outline: none;
+
+      font-size: 15px;
+
+      line-height: 1.4;
+
+    }
+
+
+    textarea:focus {
+
+      border-color:
+        #8b5cf6;
+
+      box-shadow:
+        0 0 0 2px
+        rgba(139,92,246,0.08);
+
+    }
+
+
+    .send {
+
+      width: 52px;
+
+      height: 50px;
+
+      border: 0;
+
+      border-radius: 17px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #8b5cf6,
+          #663bc5
+        );
+
+      color: white;
+
+      font-size: 21px;
+
+      cursor: pointer;
+
+      flex-shrink: 0;
+
+    }
+
+
+    .send:active {
+
+      transform:
+        scale(0.94);
+
+    }
+
+
+    .tools {
+
+      width: 100%;
+
+      max-width: 850px;
+
+      margin:
+        7px auto 0;
+
+      display: flex;
+
+      justify-content:
+        space-between;
+
+      align-items: center;
+
+    }
+
+
+    .tool {
+
+      border: 0;
+
+      background: transparent;
+
+      color: #686873;
+
+      font-size: 11px;
+
+      cursor: pointer;
+
+      padding: 4px;
+
+    }
+
+
+    .tool:hover {
+
+      color: white;
+
+    }
+
+
+    .connection {
+
+      color: #6fd58d;
+
+      font-size: 10px;
+
+    }
+
+
+    /* =========================
+       ANIMATIONS
+    ========================= */
+
+    @keyframes appear {
+
+      from {
+
+        opacity: 0;
+
+        transform:
+          translateY(8px);
+
+      }
+
+      to {
+
+        opacity: 1;
+
+        transform:
+          translateY(0);
+
+      }
+
+    }
+
+
+    @keyframes bounce {
+
+      0%,
+      60%,
+      100% {
+
+        transform:
+          translateY(0);
+
+      }
+
+      30% {
+
+        transform:
+          translateY(-4px);
+
+      }
+
+    }
+
+
   </style>
+
 </head>
+
 
 <body>
 
+
 <div class="app">
 
+
+  <!-- TOPBAR -->
+
   <header class="topbar">
+
 
     <button
       class="back"
       onclick="goBack()"
+      aria-label="Retour"
     >
       ←
     </button>
+
 
     <div class="brain">
       🧠
     </div>
 
+
     <div class="title">
 
-      <h1>LOX PRIME</h1>
+      <h1>
+        LOX PRIME
+      </h1>
 
-      <p>● SYSTÈME PRÊT</p>
+      <p>
+        ● SYSTÈME PRÊT
+      </p>
 
     </div>
 
+
   </header>
 
+
+  <!-- CHAT -->
 
   <main
     id="chat"
     class="chat"
   >
 
-    <div class="welcome">
+
+    <section
+      id="welcome"
+      class="welcome"
+    >
 
       <div class="welcome-icon">
         🧠
       </div>
 
-      <h2>LOX PRIME</h2>
+      <h2>
+        LOX PRIME
+      </h2>
 
       <p>
-        Bonjour. Je suis l'interface centrale
-        de LOX PRIME.
+
+        Bonjour 👋
+
         <br><br>
-        Tu peux commencer une conversation.
+
+        Je suis le noyau conversationnel
+        de LOX.
+
+        <br><br>
+
+        Écris ton premier message
+        pour commencer.
+
       </p>
 
+    </section>
+
+
+    <!-- INDICATEUR -->
+
+    <div
+      id="typing"
+      class="typing"
+    >
+
+      <div class="lox-avatar">
+        🧠
+      </div>
+
+      <span>
+        LOX PRIME réfléchit
+      </span>
+
+      <div class="dots">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </div>
+
     </div>
+
 
   </main>
 
 
+  <!-- INPUT -->
+
   <div class="input-area">
 
+
     <div class="input-box">
+
 
       <textarea
         id="messageInput"
         placeholder="Écris un message à LOX PRIME..."
-        onkeydown="handleKey(event)"
+        rows="1"
       ></textarea>
 
+
       <button
+        id="sendButton"
         class="send"
         onclick="sendMessage()"
+        aria-label="Envoyer"
       >
         ➤
       </button>
 
+
     </div>
 
+
     <div class="tools">
+
 
       <button
         class="tool"
         onclick="clearChat()"
       >
-        🗑️ Effacer la conversation
+        🗑️ Effacer
       </button>
 
-      <span
-        id="status"
-        class="typing"
-      ></span>
+
+      <span class="connection">
+        LOCAL • V1.0
+      </span>
+
 
     </div>
 
+
   </div>
+
 
 </div>
 
 
 <script>
 
-  const STORAGE_KEY = "lox_prime_messages";
+
+  /*
+   * ======================================
+   * LOX PRIME — CORE
+   * ======================================
+   *
+   * Cette version fonctionne localement.
+   *
+   * IMPORTANT :
+   * aucune clé API n'est stockée ici.
+   *
+   * Plus tard, la connexion à une IA
+   * passera par un serveur sécurisé.
+   */
 
 
-  function loadMessages() {
+  const STORAGE_KEY =
+    "lox_prime_conversation";
 
-    const saved =
-      localStorage.getItem(STORAGE_KEY);
 
-    if (!saved) {
-      return;
-    }
+  let messages = [];
 
-    const messages =
-      JSON.parse(saved);
 
-    messages.forEach(function(message) {
+  /*
+   * ======================================
+   * INITIALISATION
+   * ======================================
+   */
 
-      addMessage(
-        message.text,
-        message.sender,
-        false
+  function init() {
+
+    loadMessages();
+
+    const input =
+      document.getElementById(
+        "messageInput"
       );
 
-    });
+
+    input.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Enter" &&
+          !event.shiftKey
+        ) {
+
+          event.preventDefault();
+
+          sendMessage();
+
+        }
+
+      }
+    );
+
+
+    input.addEventListener(
+      "input",
+      autoResize
+    );
 
   }
 
 
-  function saveMessage(text, sender) {
+  /*
+   * ======================================
+   * CHARGER
+   * ======================================
+   */
+
+  function loadMessages() {
 
     const saved =
-      localStorage.getItem(STORAGE_KEY);
+      localStorage.getItem(
+        STORAGE_KEY
+      );
 
-    const messages =
-      saved ? JSON.parse(saved) : [];
 
-    messages.push({
-      text: text,
-      sender: sender
-    });
+    if (!saved) {
+
+      return;
+
+    }
+
+
+    try {
+
+      messages =
+        JSON.parse(saved);
+
+
+      messages.forEach(
+        function(message) {
+
+          renderMessage(
+            message.text,
+            message.sender,
+            false
+          );
+
+        }
+      );
+
+
+    } catch (error) {
+
+      console.log(
+        "Impossible de charger la conversation."
+      );
+
+    }
+
+  }
+
+
+  /*
+   * ======================================
+   * SAUVEGARDER
+   * ======================================
+   */
+
+  function saveConversation() {
 
     localStorage.setItem(
       STORAGE_KEY,
@@ -339,186 +983,434 @@
   }
 
 
+  /*
+   * ======================================
+   * AJOUTER UN MESSAGE
+   * ======================================
+   */
+
   function addMessage(
     text,
-    sender,
-    save = true
+    sender
   ) {
 
-    const chat =
-      document.getElementById("chat");
+    messages.push({
 
-    const welcome =
-      document.querySelector(".welcome");
+      text: text,
 
-    if (welcome) {
-      welcome.remove();
-    }
+      sender: sender
 
-    const message =
-      document.createElement("div");
-
-    message.className =
-      "message " + sender;
-
-    const bubble =
-      document.createElement("div");
-
-    bubble.className = "bubble";
-
-    bubble.textContent = text;
-
-    message.appendChild(bubble);
-
-    chat.appendChild(message);
-
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: "smooth"
     });
 
-    if (save) {
-      saveMessage(text, sender);
+
+    saveConversation();
+
+
+    renderMessage(
+      text,
+      sender,
+      true
+    );
+
+  }
+
+
+  /*
+   * ======================================
+   * AFFICHER
+   * ======================================
+   */
+
+  function renderMessage(
+    text,
+    sender,
+    scroll
+  ) {
+
+
+    const welcome =
+      document.getElementById(
+        "welcome"
+      );
+
+
+    if (welcome) {
+
+      welcome.remove();
+
+    }
+
+
+    const chat =
+      document.getElementById(
+        "chat"
+      );
+
+
+    const wrapper =
+      document.createElement(
+        "div"
+      );
+
+
+    wrapper.className =
+      "message " + sender;
+
+
+    if (sender === "lox") {
+
+
+      const avatar =
+        document.createElement(
+          "div"
+        );
+
+
+      avatar.className =
+        "lox-avatar";
+
+
+      avatar.textContent =
+        "🧠";
+
+
+      wrapper.appendChild(
+        avatar
+      );
+
+    }
+
+
+    const bubble =
+      document.createElement(
+        "div"
+      );
+
+
+    bubble.className =
+      "bubble";
+
+
+    bubble.textContent =
+      text;
+
+
+    wrapper.appendChild(
+      bubble
+    );
+
+
+    chat.insertBefore(
+      wrapper,
+      document.getElementById(
+        "typing"
+      )
+    );
+
+
+    if (scroll) {
+
+      scrollToBottom();
+
     }
 
   }
 
 
+  /*
+   * ======================================
+   * ENVOYER
+   * ======================================
+   */
+
   function sendMessage() {
+
 
     const input =
       document.getElementById(
         "messageInput"
       );
 
+
     const text =
       input.value.trim();
 
+
     if (!text) {
+
       return;
+
     }
+
 
     addMessage(
       text,
       "user"
     );
 
+
     input.value = "";
 
-    const status =
-      document.getElementById("status");
-
-    status.textContent =
-      "LOX PRIME réfléchit...";
+    autoResize();
 
 
-    setTimeout(function() {
+    showTyping();
 
-      status.textContent = "";
 
-      const response =
-        generateLocalResponse(text);
+    /*
+     * Simulation temporaire.
+     *
+     * Le véritable moteur IA sera
+     * connecté ultérieurement.
+     */
 
-      addMessage(
-        response,
-        "lox"
-      );
+    setTimeout(
+      function() {
 
-    }, 700);
+        hideTyping();
+
+
+        const response =
+          generateLocalResponse(
+            text
+          );
+
+
+        addMessage(
+          response,
+          "lox"
+        );
+
+      },
+      900
+    );
 
   }
 
 
-  function generateLocalResponse(text) {
+  /*
+   * ======================================
+   * RÉPONSE TEMPORAIRE
+   * ======================================
+   */
+
+  function generateLocalResponse(
+    text
+  ) {
+
 
     const message =
       text.toLowerCase();
 
+
     if (
-      message.includes("bonjour") ||
-      message.includes("salut") ||
-      message.includes("hello")
+      message.includes(
+        "bonjour"
+      ) ||
+      message.includes(
+        "salut"
+      ) ||
+      message.includes(
+        "hello"
+      )
     ) {
 
-      return "Bonjour 👋 Je suis LOX PRIME. Comment puis-je t'aider ?";
+      return (
+        "Bonjour 👋\n\n" +
+        "LOX PRIME est opérationnel. " +
+        "Que veux-tu faire ?"
+      );
 
     }
 
 
     if (
-      message.includes("qui es-tu") ||
-      message.includes("qui es tu")
+      message.includes(
+        "qui es-tu"
+      ) ||
+      message.includes(
+        "qui es tu"
+      )
     ) {
 
-      return "Je suis LOX PRIME, le noyau conversationnel de l'interface LOX.";
+      return (
+        "Je suis LOX PRIME 🧠, " +
+        "le noyau conversationnel " +
+        "de l'environnement LOX."
+      );
 
     }
 
 
     if (
-      message.includes("lox")
+      message.includes(
+        "version"
+      )
     ) {
 
-      return "LOX est actuellement en construction. Ses modules seront progressivement connectés à PRIME.";
+      return (
+        "LOX PRIME fonctionne actuellement " +
+        "en version locale V1.0."
+      );
 
     }
 
 
     if (
-      message.includes("merci")
+      message.includes(
+        "merci"
+      )
     ) {
 
-      return "Avec plaisir. 💎";
+      return (
+        "Avec plaisir. 💎"
+      );
 
     }
 
 
     return (
-      "J'ai bien reçu ton message : « " +
+
+      "Message reçu. 🧠\n\n" +
+
+      "« " +
       text +
       " »\n\n" +
-      "Cette version de LOX PRIME fonctionne encore localement. " +
-      "La prochaine étape sera de connecter un véritable moteur d'IA."
+
+      "Cette version de LOX PRIME " +
+      "utilise encore son moteur local. " +
+
+      "La prochaine évolution permettra " +
+      "de connecter un véritable modèle " +
+      "d'intelligence artificielle."
+
     );
 
   }
 
 
-  function handleKey(event) {
+  /*
+   * ======================================
+   * TYPING
+   * ======================================
+   */
 
-    if (
-      event.key === "Enter" &&
-      !event.shiftKey
-    ) {
+  function showTyping() {
 
-      event.preventDefault();
+    document
+      .getElementById("typing")
+      .classList.add("show");
 
-      sendMessage();
 
-    }
+    scrollToBottom();
 
   }
 
 
+  function hideTyping() {
+
+    document
+      .getElementById("typing")
+      .classList.remove("show");
+
+  }
+
+
+  /*
+   * ======================================
+   * SCROLL
+   * ======================================
+   */
+
+  function scrollToBottom() {
+
+    setTimeout(
+      function() {
+
+        window.scrollTo({
+
+          top:
+            document.body.scrollHeight,
+
+          behavior:
+            "smooth"
+
+        });
+
+      },
+      50
+    );
+
+  }
+
+
+  /*
+   * ======================================
+   * AGRANDIR TEXTAREA
+   * ======================================
+   */
+
+  function autoResize() {
+
+    const input =
+      document.getElementById(
+        "messageInput"
+      );
+
+
+    input.style.height =
+      "auto";
+
+
+    input.style.height =
+      Math.min(
+        input.scrollHeight,
+        130
+      ) + "px";
+
+  }
+
+
+  /*
+   * ======================================
+   * EFFACER
+   * ======================================
+   */
+
   function clearChat() {
+
 
     const confirmation =
       confirm(
-        "Effacer toute la conversation LOX PRIME ?"
+        "Voulez-vous vraiment effacer toute la conversation ?"
       );
 
+
     if (!confirmation) {
+
       return;
+
     }
+
 
     localStorage.removeItem(
       STORAGE_KEY
     );
 
+
+    messages = [];
+
+
     location.reload();
 
   }
 
+
+  /*
+   * ======================================
+   * RETOUR
+   * ======================================
+   */
 
   function goBack() {
 
@@ -528,9 +1420,18 @@
   }
 
 
-  loadMessages();
+  /*
+   * ======================================
+   * START
+   * ======================================
+   */
+
+  init();
+
 
 </script>
 
+
 </body>
+
 </html>

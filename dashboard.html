@@ -16,7 +16,7 @@
       margin: 0;
       min-height: 100vh;
       background: #07070b;
-      color: #fff;
+      color: white;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
@@ -26,44 +26,10 @@
       cursor: pointer;
     }
 
-    /* BACKGROUND */
-
-    body::before {
-      content: "";
-      position: fixed;
-      width: 350px;
-      height: 350px;
-      background: #6d28d9;
-      filter: blur(150px);
-      opacity: 0.12;
-      top: -150px;
-      right: -100px;
-      pointer-events: none;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      width: 300px;
-      height: 300px;
-      background: #2563eb;
-      filter: blur(150px);
-      opacity: 0.08;
-      bottom: -150px;
-      left: -100px;
-      pointer-events: none;
-    }
-
-    /* APP */
-
     .app {
-      position: relative;
-      z-index: 1;
       min-height: 100vh;
       padding-bottom: 90px;
     }
-
-    /* TOPBAR */
 
     .topbar {
       height: 75px;
@@ -72,8 +38,7 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid #202029;
-      background: rgba(7, 7, 11, 0.85);
-      backdrop-filter: blur(15px);
+      background: rgba(7,7,11,0.92);
       position: sticky;
       top: 0;
       z-index: 20;
@@ -89,16 +54,14 @@
     }
 
     .logo span {
-      font-size: 30px;
+      font-size: 29px;
     }
 
     .status {
       color: #75e69a;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: bold;
     }
-
-    /* MAIN */
 
     .main {
       width: 100%;
@@ -108,7 +71,7 @@
     }
 
     .hero {
-      padding: 20px 4px 25px;
+      padding: 15px 4px 25px;
     }
 
     .hero small {
@@ -125,31 +88,97 @@
     .hero p {
       color: #92929e;
       line-height: 1.5;
+    }
+
+    /* UPDATE ENGINE */
+
+    .update-box {
+      background: linear-gradient(145deg, #161322, #101015);
+      border: 1px solid #30264a;
+      border-radius: 24px;
+      padding: 22px;
+      margin-bottom: 25px;
+    }
+
+    .update-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .update-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: #8b5cf6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 27px;
+    }
+
+    .update-header h2 {
       margin: 0;
+      font-size: 20px;
+    }
+
+    .update-header p {
+      margin: 5px 0 0;
+      color: #7ee5a0;
+      font-size: 12px;
+    }
+
+    .version-row {
+      margin: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+      background: #0c0c11;
+      border-radius: 15px;
+    }
+
+    .version-row span {
+      color: #8d8d99;
+    }
+
+    .version-row strong {
+      color: #cbb9ff;
+    }
+
+    .update-button {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 15px;
+      background: #8b5cf6;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .update-button:active {
+      transform: scale(0.98);
+    }
+
+    .update-result {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: #101a15;
+      border: 1px solid #214b32;
+      border-radius: 14px;
+      color: #8ee9a9;
+      line-height: 1.5;
     }
 
     /* PRIME */
 
     .prime {
-      position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(135deg, #181126, #101016);
+      background: linear-gradient(135deg, #181126, #101016);
       border: 1px solid #30234a;
-      border-radius: 26px;
-      padding: 25px;
+      border-radius: 25px;
+      padding: 24px;
       margin-bottom: 25px;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.25);
-    }
-
-    .prime::after {
-      content: "AI";
-      position: absolute;
-      right: 20px;
-      top: 10px;
-      font-size: 80px;
-      font-weight: bold;
-      color: rgba(139,92,246,0.05);
     }
 
     .prime-top {
@@ -166,12 +195,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 29px;
+      font-size: 28px;
     }
 
     .prime h2 {
       margin: 0;
-      font-size: 22px;
+      font-size: 21px;
     }
 
     .prime-status {
@@ -187,7 +216,7 @@
     }
 
     .prime-button {
-      border: 0;
+      border: none;
       border-radius: 14px;
       background: #8b5cf6;
       color: white;
@@ -195,14 +224,12 @@
       font-weight: bold;
     }
 
-    /* SECTION */
+    /* MODULES */
 
     .section-title {
       margin: 30px 2px 15px;
       font-size: 19px;
     }
-
-    /* MODULES */
 
     .modules {
       display: grid;
@@ -257,7 +284,7 @@
 
     .system-card strong {
       display: block;
-      font-size: 22px;
+      font-size: 20px;
       margin-bottom: 6px;
     }
 
@@ -278,9 +305,8 @@
       display: flex;
       justify-content: space-around;
       align-items: center;
-      background: rgba(10,10,14,0.95);
+      background: rgba(10,10,14,0.96);
       border-top: 1px solid #24242c;
-      backdrop-filter: blur(15px);
     }
 
     .nav-button {
@@ -325,7 +351,6 @@
       border: 1px solid #2b2b36;
       border-radius: 26px 26px 0 0;
       padding: 25px;
-      animation: up 0.25s ease;
     }
 
     .modal-content h2 {
@@ -347,18 +372,7 @@
       margin-top: 15px;
     }
 
-    @keyframes up {
-      from {
-        transform: translateY(100%);
-      }
-
-      to {
-        transform: translateY(0);
-      }
-    }
-
     @media (min-width: 700px) {
-
       .modules {
         grid-template-columns: repeat(3, 1fr);
       }
@@ -366,19 +380,18 @@
       .bottom-nav {
         max-width: 700px;
         left: 50%;
+        right: auto;
+        width: 100%;
         transform: translateX(-50%);
         border-radius: 25px 25px 0 0;
       }
     }
-
   </style>
 </head>
 
 <body>
 
 <div class="app">
-
-  <!-- TOPBAR -->
 
   <header class="topbar">
 
@@ -393,8 +406,6 @@
 
   </header>
 
-
-  <!-- MAIN -->
 
   <main class="main">
 
@@ -411,7 +422,55 @@
     </section>
 
 
-    <!-- LOX PRIME -->
+    <!-- UPDATE ENGINE -->
+
+    <section class="update-box">
+
+      <div class="update-header">
+
+        <div class="update-icon">
+          🔄
+        </div>
+
+        <div>
+
+          <h2>LOX UPDATE ENGINE</h2>
+
+          <p>● SYSTÈME OPÉRATIONNEL</p>
+
+        </div>
+
+      </div>
+
+
+      <div class="version-row">
+
+        <span>Version actuelle</span>
+
+        <strong id="currentVersion">
+          V1.0
+        </strong>
+
+      </div>
+
+
+      <button
+        class="update-button"
+        onclick="checkUpdate()"
+      >
+        🔄 Vérifier les mises à jour
+      </button>
+
+
+      <div
+        id="updateResult"
+        class="update-result"
+      ></div>
+
+    </section>
+
+
+    <!-- PRIME -->
 
     <section class="prime">
 
@@ -434,9 +493,9 @@
       </div>
 
       <p>
-        Ton intelligence centrale. Elle sera progressivement
-        connectée aux agents, aux modules et aux systèmes
-        de LOX.
+        Le cerveau central de LOX.
+        Il sera progressivement connecté
+        aux différents modules.
       </p>
 
       <button
@@ -449,179 +508,98 @@
     </section>
 
 
-    <!-- MODULES -->
-
     <h2 class="section-title">
       ⚡ Modules
     </h2>
 
+
     <section class="modules">
 
-
-      <article
-        class="module"
-        onclick="openModule('Météo')"
-      >
+      <article class="module" onclick="openModule('Météo')">
         <div class="module-icon">🌤️</div>
         <h3>Météo</h3>
-        <p>
-          Conditions et prévisions.
-        </p>
+        <p>Conditions et prévisions.</p>
       </article>
 
-
-      <article
-        class="module"
-        onclick="openModule('Générateur de fréquence')"
-      >
+      <article class="module" onclick="openModule('Fréquences')">
         <div class="module-icon">〰️</div>
         <h3>Fréquences</h3>
-        <p>
-          Générateur et visualisation.
-        </p>
+        <p>Générateur et visualisation.</p>
       </article>
 
-
-      <article
-        class="module"
-        onclick="openModule('Creator')"
-      >
+      <article class="module" onclick="openModule('Creator')">
         <div class="module-icon">🎨</div>
         <h3>Creator</h3>
-        <p>
-          Création de contenu assistée.
-        </p>
+        <p>Création assistée.</p>
       </article>
 
-
-      <article
-        class="module"
-        onclick="openModule('Laboratoire')"
-      >
+      <article class="module" onclick="openModule('Laboratoire')">
         <div class="module-icon">🔬</div>
         <h3>Laboratoire</h3>
-        <p>
-          Analyse assistée par agent IA.
-        </p>
+        <p>Analyse et expérimentation.</p>
       </article>
 
-
-      <article
-        class="module"
-        onclick="openModule('News')"
-      >
+      <article class="module" onclick="openModule('News')">
         <div class="module-icon">🌍</div>
         <h3>News</h3>
-        <p>
-          Actualités du monde.
-        </p>
+        <p>Actualités.</p>
       </article>
 
-
-      <article
-        class="module"
-        onclick="openModule('Scanner')"
-      >
+      <article class="module" onclick="openModule('Scanner')">
         <div class="module-icon">📡</div>
         <h3>Scanner</h3>
-        <p>
-          Outils d'analyse et détection.
-        </p>
+        <p>Analyse et détection.</p>
       </article>
 
-
-      <article
-        class="module"
-        onclick="openModule('Caméra infrarouge')"
-      >
+      <article class="module" onclick="openModule('Infrarouge')">
         <div class="module-icon">🌡️</div>
         <h3>Infrarouge</h3>
-        <p>
-          Interface caméra IR.
-        </p>
+        <p>Interface caméra IR.</p>
       </article>
 
-
-      <article
-        class="module"
-        onclick="openModule('Playlist')"
-      >
+      <article class="module" onclick="openModule('Playlist')">
         <div class="module-icon">🎵</div>
         <h3>Playlist</h3>
-        <p>
-          Ton espace audio.
-        </p>
+        <p>Espace audio.</p>
       </article>
 
-
-      <article
-        class="module"
-        onclick="openModule('Fichiers multimédia')"
-      >
+      <article class="module" onclick="openModule('Médias')">
         <div class="module-icon">📁</div>
         <h3>Médias</h3>
-        <p>
-          Fichiers et contenus.
-        </p>
+        <p>Fichiers et contenus.</p>
       </article>
 
-
-      <article
-        class="module"
-        onclick="openModule('Jeux')"
-      >
+      <article class="module" onclick="openModule('Jeux')">
         <div class="module-icon">🎮</div>
         <h3>Jeux</h3>
-        <p>
-          Espace gaming.
-        </p>
+        <p>Espace gaming.</p>
       </article>
 
-
-      <article
-        class="module"
-        onclick="openModule('Grimoire')"
-      >
+      <article class="module" onclick="openModule('Grimoire')">
         <div class="module-icon">📖</div>
         <h3>Grimoire</h3>
-        <p>
-          Notes et connaissances.
-        </p>
+        <p>Notes et connaissances.</p>
       </article>
 
-
-      <article
-        class="module"
-        onclick="openModule('Cockpit')"
-      >
+      <article class="module" onclick="openModule('Cockpit')">
         <div class="module-icon">🚀</div>
         <h3>Cockpit</h3>
-        <p>
-          Centre de contrôle.
-        </p>
+        <p>Centre de contrôle.</p>
       </article>
 
-
-      <article
-        class="module"
-        onclick="openModule('Satellite')"
-      >
+      <article class="module" onclick="openModule('Satellite')">
         <div class="module-icon">🛰️</div>
         <h3>Satellite</h3>
-        <p>
-          Exploration et données spatiales.
-        </p>
+        <p>Exploration spatiale.</p>
       </article>
-
 
     </section>
 
 
-    <!-- SYSTÈME -->
-
     <h2 class="section-title">
       🧬 État du système
     </h2>
+
 
     <section class="system">
 
@@ -632,7 +610,7 @@
 
       <div class="system-card">
         <strong>READY</strong>
-        <span>Agents IA</span>
+        <span>Modules</span>
       </div>
 
       <div class="system-card">
@@ -641,8 +619,8 @@
       </div>
 
       <div class="system-card">
-        <strong>0</strong>
-        <span>Mises à jour</span>
+        <strong>OK</strong>
+        <span>Intégrité</span>
       </div>
 
     </section>
@@ -650,38 +628,24 @@
   </main>
 
 
-  <!-- NAVIGATION -->
-
   <nav class="bottom-nav">
 
-    <button
-      class="nav-button active"
-      onclick="scrollTopPage()"
-    >
+    <button class="nav-button active" onclick="scrollTopPage()">
       <span>🏠</span>
       Accueil
     </button>
 
-    <button
-      class="nav-button"
-      onclick="openModule('Recherche')"
-    >
+    <button class="nav-button" onclick="openModule('Recherche')">
       <span>🔎</span>
       Recherche
     </button>
 
-    <button
-      class="nav-button"
-      onclick="openModule('LOX PRIME')"
-    >
+    <button class="nav-button" onclick="openModule('LOX PRIME')">
       <span>🧠</span>
       IA
     </button>
 
-    <button
-      class="nav-button"
-      onclick="openModule('Paramètres')"
-    >
+    <button class="nav-button" onclick="openModule('Paramètres')">
       <span>⚙️</span>
       Réglages
     </button>
@@ -691,24 +655,17 @@
 </div>
 
 
-<!-- MODAL -->
-
 <div id="modal" class="modal">
 
   <div class="modal-content">
 
-    <h2 id="modalTitle">
-      LOX
-    </h2>
+    <h2 id="modalTitle">LOX</h2>
 
     <p id="modalText">
       Module LOX.
     </p>
 
-    <button
-      class="close"
-      onclick="closeModule()"
-    >
+    <button class="close" onclick="closeModule()">
       Fermer
     </button>
 
@@ -719,6 +676,38 @@
 
 <script>
 
+  /*
+   * LOX UPDATE ENGINE
+   *
+   * Pour l'instant, cette fonction vérifie
+   * l'état local du système.
+   *
+   * Plus tard, elle pourra consulter un
+   * fichier de version contrôlé sur GitHub.
+   */
+
+  function checkUpdate() {
+
+    const result =
+      document.getElementById("updateResult");
+
+    result.style.display = "block";
+
+    result.innerHTML =
+      "🔍 Vérification en cours...";
+
+    setTimeout(function() {
+
+      result.innerHTML =
+        "✅ LOX est à jour.<br>" +
+        "Version installée : V1.0<br>" +
+        "Aucune mise à jour disponible.";
+
+    }, 1200);
+
+  }
+
+
   function openModule(name) {
 
     document.getElementById("modalTitle")
@@ -728,10 +717,12 @@
       .textContent =
       "Le module " + name +
       " est enregistré dans LOX. " +
-      "Nous allons maintenant lui donner ses véritables fonctionnalités.";
+      "Nous allons maintenant lui donner " +
+      "ses véritables fonctionnalités.";
 
     document.getElementById("modal")
       .classList.add("open");
+
   }
 
 
@@ -739,6 +730,7 @@
 
     document.getElementById("modal")
       .classList.remove("open");
+
   }
 
 
@@ -753,13 +745,16 @@
 
 
   document.getElementById("modal")
-    .addEventListener("click", function(event) {
+    .addEventListener(
+      "click",
+      function(event) {
 
-      if (event.target === this) {
-        closeModule();
+        if (event.target === this) {
+          closeModule();
+        }
+
       }
-
-    });
+    );
 
 </script>
 

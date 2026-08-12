@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOX</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #0b0b0f;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      padding: 40px 25px;
+    }
+
+    .logo {
+      font-size: 90px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 56px;
+      margin: 0 0 15px;
+      letter-spacing: 3px;
+    }
+
+    p {
+      color: #b8b8c2;
+      font-size: 22px;
+      margin-bottom: 45px;
+    }
+
+    button {
+      border: none;
+      background: #8b5cf6;
+      color: white;
+      font-size: 22px;
+      padding: 18px 55px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    button:hover {
+      background: #9b6cff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container" id="app">
+    <div class="logo">💎</div>
+
+    <h1>LOX</h1>
+
+    <p>Bienvenue sur LOX</p>
+
+    <button onclick="commencer()">
+      Commencer
+    </button>
+  </div>
+
+  <script>
+    function commencer() {
+      document.getElementById("app").innerHTML = `
+        <div class="logo">💎</div>
+
+        <h1>Bienvenue dans LOX</h1>
+
+        <p>
+          Tu es maintenant dans ton espace LOX.
+        </p>
+
+        <button onclick="accueil()">
+          Retour
+        </button>
+      `;
+    }
+
+    function accueil() {
+      location.reload();
+    }
+  </script>
+
+</body>
+</html>

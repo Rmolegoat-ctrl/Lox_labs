@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>LOX — Commencer</title>
 
   <style>
@@ -13,9 +14,9 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background: #0b0b0f;
+      background: #08080d;
       color: white;
+      font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -24,13 +25,13 @@
 
     .container {
       width: 100%;
-      max-width: 700px;
-      padding: 40px 20px;
+      max-width: 650px;
+      padding: 30px 20px;
     }
 
     .logo {
-      font-size: 80px;
-      margin-bottom: 20px;
+      font-size: 85px;
+      margin-bottom: 15px;
     }
 
     h1 {
@@ -39,121 +40,121 @@
     }
 
     .subtitle {
-      color: #bdbdc7;
-      font-size: 20px;
-      line-height: 1.5;
-      margin-bottom: 40px;
+      color: #aaaab5;
+      font-size: 19px;
+      line-height: 1.6;
+      margin-bottom: 35px;
     }
 
     .card {
       background: #15151d;
       border: 1px solid #292936;
-      border-radius: 24px;
-      padding: 30px 20px;
-      margin-bottom: 25px;
+      border-radius: 25px;
+      padding: 30px 22px;
     }
 
     .card h2 {
       margin-top: 0;
-      font-size: 26px;
     }
 
     .card p {
-      color: #bdbdc7;
+      color: #9999a5;
       line-height: 1.6;
     }
 
     .btn {
-      display: inline-block;
       border: none;
-      border-radius: 50px;
-      padding: 17px 40px;
-      font-size: 20px;
-      font-weight: bold;
+      background: linear-gradient(135deg, #8b5cf6, #6d3fd1);
       color: white;
-      background: #8b5cf6;
-      text-decoration: none;
+      padding: 17px 45px;
+      border-radius: 50px;
+      font-size: 19px;
+      font-weight: bold;
       cursor: pointer;
-      transition: 0.2s;
+      margin-top: 15px;
+      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.25);
     }
 
-    .btn:hover {
-      transform: scale(1.04);
-      background: #9d70ff;
+    .btn:active {
+      transform: scale(0.96);
     }
 
     .back {
-      display: inline-block;
-      margin-top: 20px;
-      color: #aaa;
+      display: block;
+      margin-top: 25px;
+      color: #9999a5;
       text-decoration: none;
-      font-size: 16px;
     }
 
     .back:hover {
       color: white;
     }
 
-    #message {
-      display: none;
-      margin-top: 25px;
-      padding: 18px;
-      border-radius: 15px;
-      background: #1d1d27;
-      color: #d6c7ff;
-      font-size: 18px;
+    .version {
+      margin-top: 30px;
+      color: #555560;
+      font-size: 12px;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+  <main class="container">
 
     <div class="logo">💎</div>
 
     <h1>Bienvenue dans LOX</h1>
 
     <p class="subtitle">
-      Ton espace LOX commence ici.<br>
-      Prépare-toi à découvrir ton nouvel univers.
+      Ton environnement LOX est prêt.
+      <br>
+      Le centre de contrôle t'attend.
     </p>
 
-    <div class="card">
-      <h2>🚀 Prêt à commencer ?</h2>
+    <section class="card">
+
+      <h2>🚀 Accéder à LOX</h2>
 
       <p>
-        Tu es arrivé dans ton espace LOX.
-        Clique sur le bouton ci-dessous pour continuer.
+        Tu vas maintenant entrer dans le
+        Dashboard principal de LOX.
       </p>
 
-      <button class="btn" onclick="commencer()">
-        Commencer
+      <button
+        class="btn"
+        onclick="ouvrirDashboard()"
+      >
+        Entrer dans LOX
       </button>
 
-      <div id="message">
-        ✨ Bienvenue dans LOX !<br><br>
-        Ton espace est prêt.
-      </div>
-    </div>
+    </section>
 
     <a href="index.html" class="back">
       ← Retour à l'accueil
     </a>
 
-  </div>
+    <div class="version">
+      LOX V1.0
+    </div>
+
+  </main>
+
 
   <script>
-    function commencer() {
-      const message = document.getElementById("message");
 
-      message.style.display = "block";
+    function ouvrirDashboard() {
 
-      message.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
+      localStorage.setItem(
+        "lox_started",
+        "true"
+      );
+
+      window.location.href =
+        "dashboard.html";
+
     }
+
   </script>
 
 </body>

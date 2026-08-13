@@ -1,188 +1,702 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta charset="UTF-8">
+<title>LOX PRIME</title>
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<style>
+* {
+    box-sizing: border-box;
+}
 
-  <title>LOX</title>
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: #08080d;
+    color: white;
+}
 
-  <style>
+body {
+    display: flex;
+    justify-content: center;
+}
 
-    * {
-      box-sizing: border-box;
+.app {
+    width: 100%;
+    max-width: 700px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(120, 70, 255, 0.14),
+            transparent 45%
+        ),
+        #08080d;
+}
+
+/* HEADER */
+
+.header {
+    height: 92px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: rgba(10,10,17,0.92);
+}
+
+.logo {
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #6d28d9
+    );
+    box-shadow:
+        0 0 30px rgba(139,92,246,0.35);
+}
+
+.header-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.status {
+    margin-top: 4px;
+    font-size: 13px;
+    color: #65e6a5;
+}
+
+.status.offline {
+    color: #ff6b6b;
+}
+
+/* CHAT */
+
+.chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 25px 18px 130px;
+}
+
+.message {
+    display: flex;
+    margin-bottom: 18px;
+}
+
+.message.user {
+    justify-content: flex-end;
+}
+
+.message.ai {
+    justify-content: flex-start;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 13px;
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #6d28d9
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.bubble {
+    max-width: 82%;
+    padding: 15px 17px;
+    border-radius: 20px;
+    line-height: 1.55;
+    font-size: 16px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.user .bubble {
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #6d28d9
+    );
+    border-bottom-right-radius: 6px;
+}
+
+.ai .bubble {
+    background: #17171f;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-bottom-left-radius: 6px;
+}
+
+/* WELCOME */
+
+.welcome {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.welcome-logo {
+    font-size: 65px;
+    margin-bottom: 15px;
+}
+
+.welcome h1 {
+    font-size: 32px;
+    margin: 0 0 10px;
+}
+
+.welcome p {
+    color: #aaaab5;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* TYPING */
+
+.typing {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.typing span {
+    width: 7px;
+    height: 7px;
+    background: #aaa;
+    border-radius: 50%;
+    animation: typing 1.2s infinite;
+}
+
+.typing span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        opacity: 0.25;
+        transform: translateY(0);
     }
 
-    body {
-
-      margin: 0;
-
-      min-height: 100vh;
-
-      background: #08080d;
-
-      color: white;
-
-      font-family: Arial, sans-serif;
-
-      display: flex;
-
-      justify-content: center;
-
-      align-items: center;
-
-      text-align: center;
-
+    30% {
+        opacity: 1;
+        transform: translateY(-4px);
     }
+}
 
-    .container {
+/* INPUT AREA */
 
-      width: 100%;
+.input-area {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 700px;
+    padding: 15px;
+    background:
+        linear-gradient(
+            to top,
+            #08080d 70%,
+            transparent
+        );
+}
 
-      max-width: 600px;
+.input-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 28px;
+    background: #15151d;
+    border: 1px solid rgba(139,92,246,0.45);
+    box-shadow:
+        0 0 25px rgba(139,92,246,0.12);
+}
 
-      padding: 30px;
+#messageInput {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 16px;
+    padding: 12px 10px;
+}
 
+#messageInput::placeholder {
+    color: #777782;
+}
+
+#sendButton {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: white;
+    font-size: 22px;
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #6d28d9
+    );
+    transition: 0.2s;
+}
+
+#sendButton:hover {
+    transform: scale(1.05);
+}
+
+#sendButton:active {
+    transform: scale(0.94);
+}
+
+#sendButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.footer {
+    text-align: center;
+    color: #666673;
+    font-size: 11px;
+    margin-top: 8px;
+}
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+    .header {
+        height: 82px;
+        padding: 12px 15px;
     }
 
     .logo {
-
-      font-size: 95px;
-
-      margin-bottom: 10px;
-
-      filter:
-        drop-shadow(
-          0 0 25px
-          rgba(139, 92, 246, 0.35)
-        );
-
+        width: 52px;
+        height: 52px;
+        font-size: 28px;
     }
 
-    h1 {
-
-      font-size: 62px;
-
-      letter-spacing: 6px;
-
-      margin: 0;
-
+    .title {
+        font-size: 22px;
     }
 
-    .subtitle {
-
-      color: #aaaab5;
-
-      font-size: 20px;
-
-      margin: 18px 0 45px;
-
+    .bubble {
+        max-width: 88%;
+        font-size: 15px;
     }
 
-    .btn {
-
-      border: none;
-
-      background:
-        linear-gradient(
-          135deg,
-          #8b5cf6,
-          #6d3fd1
-        );
-
-      color: white;
-
-      font-size: 21px;
-
-      font-weight: bold;
-
-      padding: 18px 55px;
-
-      border-radius: 50px;
-
-      cursor: pointer;
-
-      box-shadow:
-        0 10px 35px
-        rgba(139, 92, 246, 0.25);
-
-      transition: 0.2s;
-
+    .chat {
+        padding-left: 12px;
+        padding-right: 12px;
     }
-
-    .btn:hover {
-
-      transform: translateY(-2px);
-
-    }
-
-    .btn:active {
-
-      transform: scale(0.96);
-
-    }
-
-    .version {
-
-      margin-top: 40px;
-
-      color: #4f4f5a;
-
-      font-size: 12px;
-
-    }
-
-  </style>
-
+}
+</style>
 </head>
-
 
 <body>
 
-  <main class="container">
+<div class="app">
 
-    <div class="logo">
-      💎
-    </div>
+    <!-- HEADER -->
 
-    <h1>
-      LOX
-    </h1>
+    <header class="header">
 
-    <p class="subtitle">
-      Ton univers intelligent commence ici.
-    </p>
+        <div class="logo">
+            🧠
+        </div>
 
-    <button
-      class="btn"
-      onclick="commencer()"
+        <div class="header-info">
+
+            <div class="title">
+                LOX PRIME
+            </div>
+
+            <div
+                id="status"
+                class="status"
+            >
+                ● Connexion...
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- CHAT -->
+
+    <main
+        id="chat"
+        class="chat"
     >
-      Commencer
-    </button>
 
-    <div class="version">
-      LOX V1.0
+        <div
+            id="welcome"
+            class="welcome"
+        >
+
+            <div class="welcome-logo">
+                🧠
+            </div>
+
+            <h1>
+                LOX PRIME
+            </h1>
+
+            <p>
+                Ton intelligence artificielle personnelle.
+                <br>
+                Pose-moi une question pour commencer.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- INPUT -->
+
+    <div class="input-area">
+
+        <div class="input-box">
+
+            <input
+                id="messageInput"
+                type="text"
+                placeholder="Écris un message à LOX PRIME..."
+                autocomplete="off"
+            >
+
+            <button
+                id="sendButton"
+                type="button"
+            >
+                ➤
+            </button>
+
+        </div>
+
+        <div class="footer">
+            LOX PRIME • GEMINI
+        </div>
+
     </div>
 
-  </main>
+</div>
 
 
-  <script>
+<script>
 
-    function commencer() {
+/* =========================================
+   CONFIGURATION
+========================================= */
 
-      window.location.href =
-        "commencer.html";
+const API_URL = "/api/chat";
 
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const chat = document.getElementById("chat");
+const input = document.getElementById("messageInput");
+const sendButton = document.getElementById("sendButton");
+const status = document.getElementById("status");
+const welcome = document.getElementById("welcome");
+
+
+/* =========================================
+   MEMOIRE DE CONVERSATION
+========================================= */
+
+let history = [];
+
+
+/* =========================================
+   VERIFICATION DU BACKEND
+========================================= */
+
+async function checkConnection() {
+
+    try {
+
+        const response = await fetch("/health");
+
+        if (!response.ok) {
+            throw new Error("Backend indisponible");
+        }
+
+        status.textContent = "● En ligne";
+        status.classList.remove("offline");
+
+    } catch (error) {
+
+        status.textContent = "● Connexion impossible";
+        status.classList.add("offline");
+
+        console.error(error);
+    }
+}
+
+
+/* =========================================
+   AJOUT MESSAGE
+========================================= */
+
+function addMessage(text, type) {
+
+    if (welcome) {
+        welcome.style.display = "none";
     }
 
-  </script>
+    const message = document.createElement("div");
+
+    message.className =
+        "message " + type;
+
+    if (type === "ai") {
+
+        const avatar = document.createElement("div");
+
+        avatar.className = "avatar";
+        avatar.textContent = "🧠";
+
+        message.appendChild(avatar);
+    }
+
+    const bubble = document.createElement("div");
+
+    bubble.className = "bubble";
+
+    bubble.textContent = text;
+
+    message.appendChild(bubble);
+
+    chat.appendChild(message);
+
+    chat.scrollTop = chat.scrollHeight;
+
+    return message;
+}
+
+
+/* =========================================
+   INDICATEUR IA
+========================================= */
+
+function showTyping() {
+
+    const message = document.createElement("div");
+
+    message.className = "message ai";
+
+    const avatar = document.createElement("div");
+
+    avatar.className = "avatar";
+    avatar.textContent = "🧠";
+
+    const bubble = document.createElement("div");
+
+    bubble.className = "bubble";
+
+    const typing = document.createElement("div");
+
+    typing.className = "typing";
+
+    typing.innerHTML =
+        "<span></span><span></span><span></span>";
+
+    bubble.appendChild(typing);
+
+    message.appendChild(avatar);
+    message.appendChild(bubble);
+
+    chat.appendChild(message);
+
+    chat.scrollTop = chat.scrollHeight;
+
+    return message;
+}
+
+
+/* =========================================
+   ENVOYER MESSAGE
+========================================= */
+
+async function sendMessage() {
+
+    const text = input.value.trim();
+
+    if (!text || sendButton.disabled) {
+        return;
+    }
+
+    addMessage(text, "user");
+
+    input.value = "";
+
+    sendButton.disabled = true;
+
+    const typingMessage = showTyping();
+
+    try {
+
+        const response = await fetch(
+            API_URL,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    message: text,
+                    history: history
+                })
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error ||
+                "Erreur du serveur"
+            );
+        }
+
+
+        typingMessage.remove();
+
+
+        const reply =
+            data.reply ||
+            data.message ||
+            data.text ||
+            "Je n'ai pas reçu de réponse.";
+
+
+        addMessage(
+            reply,
+            "ai"
+        );
+
+
+        /* Ajouter à la mémoire */
+
+        history.push({
+            role: "user",
+            content: text
+        });
+
+        history.push({
+            role: "model",
+            content: reply
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Erreur LOX PRIME :",
+            error
+        );
+
+        typingMessage.remove();
+
+        addMessage(
+            "⚠️ Je n'arrive pas à contacter mon moteur IA pour le moment.\n\nErreur : " +
+            error.message,
+            "ai"
+        );
+
+        status.textContent =
+            "● Connexion impossible";
+
+        status.classList.add("offline");
+
+    } finally {
+
+        sendButton.disabled = false;
+
+        input.focus();
+    }
+}
+
+
+/* =========================================
+   EVENEMENTS
+========================================= */
+
+sendButton.addEventListener(
+    "click",
+    sendMessage
+);
+
+
+input.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter" &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
+        }
+    }
+);
+
+
+/* =========================================
+   INITIALISATION
+========================================= */
+
+checkConnection();
+
+input.focus();
+
+</script>
 
 </body>
-
 </html>

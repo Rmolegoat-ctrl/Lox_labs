@@ -2,12 +2,15 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+# Installer les dépendances du backend
+COPY backend/package*.json ./backend/
 
-RUN npm install
+RUN cd backend && npm install --omit=dev
 
+# Copier tout le projet
 COPY . .
 
-EXPOSE 3000
+# Railway fournit automatiquement PORT
+EXPOSE 8080
 
 CMD ["node", "backend/server.js"]

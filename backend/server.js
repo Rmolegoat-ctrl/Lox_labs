@@ -1,41 +1,45 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const { GoogleGenAI } = require("@google/genai");
 
 const app = express();
 
 const PORT = process.env.PORT || 8080;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+
+// Nouveau modèle Google pour les nouveaux utilisateurs
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash";
 
 app.use(cors());
 app.use(express.json({ limit: "1mb" }));
 
-// ======================================================
-// FICHIERS DU SITE
-// ======================================================
+// =====================================================
+// FICHIERS FRONTEND
+// =====================================================
 
 const ROOT_DIR = path.join(__dirname, "..");
 
 app.use(express.static(ROOT_DIR));
 
-// ======================================================
-// ROUTE DE TEST DU SERVEUR
-// ======================================================
+// =====================================================
+// ROUTE RACINE
+// =====================================================
 
 app.get("/api/health", (req, res) => {
   res.json({
     success: true,
     name: "LOX BACKEND",
+    version: "1.0.1",
     status: "online",
     gemini: GEMINI_API_KEY ? "configured" : "not configured",
     model: GEMINI_MODEL
   });
 });
 
-// ======================================================
+// =====================================================
 // ROUTE GEMINI
-// ======================================================
+// =====================================================
 
 app.post("/api/chat", async (req, res) => {
   try {
@@ -58,7 +62,7 @@ app.post("/api/chat", async (req, res) => {
       });
     }
 
-    // Vérification de la clé
+    // Vérification de la clé API
     if (!GEMINI_API_KEY) {
       console.error("❌ GEMINI_API_KEY absente.");
 
@@ -69,108 +73,36 @@ app.post("/api/chat", async (req, res) => {
     }
 
     console.log("======================================");
-    console.log("📩 Nouvelle demande Gemini");
+    console.log("📩 DEMANDE LOX PRIME");
     console.log("🤖 Modèle :", GEMINI_MODEL);
     console.log("📝 Message :", cleanMessage.slice(0, 200));
     console.log("======================================");
 
-    // ==================================================
-    // APPEL DIRECT À L'API GEMINI
-    // ==================================================
+    // =================================================
+    // CLIENT GEMINI
+    // =================================================
 
-    const url =
-      `https://generativelanguage.googleapis.com/v1beta/models/` +
-      `${GEMINI_MODEL}:generateContent`;
+    const ai = new GoogleGenAI({
+      apiKey: GEMINI_API_KEY
+    });
 
-    const controller = new AbortController();
+    // =================================================
+    // APPEL GEMINI
+    // =================================================
 
-    const timeout = setTimeout(() => {
-      controller.abort();
-    }, 30000);
+    const response = await ai.models.generateContent({
+      model: GEMINI_MODEL,
+      contents: cleanMessage
+    });
 
-    let geminiResponse;
+    const reply = response.text;
 
-    try {
-      geminiResponse = await fetch(url, {
-        method: "POST",
+    // =================================================
+    // VÉRIFICATION DE LA RÉPONSE
+    // =================================================
 
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": GEMINI_API_KEY
-        },
-
-        body: JSON.stringify({
-          contents: [
-            {
-              role: "user",
-              parts: [
-                {
-                  text: cleanMessage
-                }
-              ]
-            }
-          ]
-        }),
-
-        signal: controller.signal
-      });
-    } finally {
-      clearTimeout(timeout);
-    }
-
-    // Lire la réponse même en cas d'erreur
-    const responseText = await geminiResponse.text();
-
-    let data;
-
-    try {
-      data = JSON.parse(responseText);
-    } catch (parseError) {
-      console.error("❌ Réponse Gemini non JSON :", responseText);
-
-      return res.status(502).json({
-        success: false,
-        error: "Gemini a retourné une réponse invalide."
-      });
-    }
-
-    // ==================================================
-    // ERREUR GEMINI
-    // ==================================================
-
-    if (!geminiResponse.ok) {
-      console.error("======================================");
-      console.error("❌ ERREUR GEMINI");
-      console.error("HTTP :", geminiResponse.status);
-      console.error("Réponse :", JSON.stringify(data, null, 2));
-      console.error("======================================");
-
-      const geminiMessage =
-        data?.error?.message ||
-        "Gemini a refusé la requête.";
-
-      return res.status(502).json({
-        success: false,
-        error: geminiMessage,
-        geminiStatus: geminiResponse.status
-      });
-    }
-
-    // ==================================================
-    // EXTRACTION DU TEXTE
-    // ==================================================
-
-    const reply =
-      data?.candidates?.[0]?.content?.parts
-        ?.map(part => part.text || "")
-        .join("")
-        .trim();
-
-    if (!reply) {
-      console.error(
-        "❌ Gemini n'a fourni aucun texte.",
-        JSON.stringify(data, null, 2)
-      );
+    if (!reply || typeof reply !== "string") {
+      console.error("❌ Gemini n'a fourni aucun texte.");
 
       return res.status(502).json({
         success: false,
@@ -183,35 +115,30 @@ app.post("/api/chat", async (req, res) => {
 
     return res.json({
       success: true,
-      reply,
+      reply: reply,
       model: GEMINI_MODEL
     });
 
   } catch (error) {
+
     console.error("======================================");
-    console.error("❌ ERREUR SERVEUR / GEMINI");
+    console.error("❌ ERREUR GEMINI");
     console.error("Nom :", error?.name);
     console.error("Message :", error?.message);
-    console.error("Stack :", error?.stack);
+    console.error("Status :", error?.status);
+    console.error("Code :", error?.code);
     console.error("======================================");
 
-    if (error?.name === "AbortError") {
-      return res.status(504).json({
-        success: false,
-        error: "Gemini met trop de temps à répondre."
-      });
-    }
-
-    return res.status(500).json({
+    return res.status(502).json({
       success: false,
-      error: error?.message || "Erreur interne du serveur."
+      error: error?.message || "Erreur lors de la communication avec Gemini."
     });
   }
 });
 
-// ======================================================
-// ROUTE 404 API
-// ======================================================
+// =====================================================
+// ROUTE API INEXISTANTE
+// =====================================================
 
 app.use("/api", (req, res) => {
   res.status(404).json({
@@ -220,9 +147,9 @@ app.use("/api", (req, res) => {
   });
 });
 
-// ======================================================
+// =====================================================
 // DÉMARRAGE
-// ======================================================
+// =====================================================
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log("======================================");

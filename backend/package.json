@@ -1,6 +1,6 @@
 {
   "name": "lox-labs-backend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Backend sécurisé de LOX PRIME avec Gemini",
   "main": "server.js",
   "scripts": {
@@ -10,6 +10,7 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@google/genai": "^2.13.0",
     "cors": "^2.8.5",
     "express": "^4.21.2"
   }
